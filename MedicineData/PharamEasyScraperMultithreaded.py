@@ -4,7 +4,7 @@ from database_functions import  mongo_insert
 import concurrent.futures
 import string
 
-medicne_records = []
+medicine_records = []
 def find_all_medicine_urls(webiste_url):
     url = current_url + '0'
     output_response = requests.get(url)
