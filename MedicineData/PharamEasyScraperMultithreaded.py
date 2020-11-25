@@ -20,6 +20,7 @@ def get_medicine_record(medicine_url):
     global medicine_records
     medicine_response = requests.get(medicine_url)
     medicine_data_soup = BeautifulSoup(medicine_response.content,'html.parser')
+    medicine_data_record ={}
     try:
         medicine_data_record['medicine_name'] = medicine_data_soup.find("h1",{"class":"ooufh"}).text
     except:
@@ -94,8 +95,8 @@ def get_medicine_record(medicine_url):
             medicine_data_record['error_found'] = []
             medicine_data_record['error_found'].append('medcine_composition not in order')
 
-    print(medicine_data_record)
-    medicine_records.append(medicine_data_record)
+    medicine_data_record_copy = medicine_data_record.copy() #dictionary copy into list addition
+    medicine_records.append(medicine_data_record_copy)  #copying the dict to global list
 
 website_url= "https://pharmeasy.in/online-medicine-order/browse"
 website_alphabet_url = website_url + "?alphabet="
@@ -107,10 +108,9 @@ medicine_urls= []
 
 current_url = website_alphabet_url + 'a' + "&page="
 medicine_urls.extend(find_all_medicine_urls(current_url))
-print(medicine_urls)
+print("url found")
 
-
-with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:
     futures= []
     for url in medicine_urls:
         futures.append(executor.submit(get_medicine_record, url))
