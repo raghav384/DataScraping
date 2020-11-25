@@ -8,18 +8,19 @@ def find_medicine_for_alphabet(current_url):
     url = current_url + '0'
     output_response = requests.get(url)
     soup = BeautifulSoup(output_response.content,'html.parser')
-    output = soup.findAll("div",{"class":"U9o7k"})
+    output = soup.find_all("div",{"class":"U9o7k"})
     name_list = []
     #for i in range(len(output)):
     #    name_list.append(output[i].a['href'])
 
     #Class for medicine information retrieval : _3bwoY
-    medicine_url = "https://pharmeasy.in/online-medicine-order" +  output[0].a['href']
+    medicine_url = "https://pharmeasy.in/" +  output[0].a['href']
+    print(medicine_url)
     medicine_response = requests.get(medicine_url)
     medicine_data_soup = BeautifulSoup(medicine_response.content,'html.parser')
+    print(medicine_data_soup.prettify())
 
-
-    print(medicine_data_soup.findAll("div",{"class":"_2UHQK"})[0].h1.text)
+    print(medicine_data_soup.findAll('div',{"class":"_3bwoY"}))
 
 
 
