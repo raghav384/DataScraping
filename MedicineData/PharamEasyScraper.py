@@ -7,11 +7,11 @@ import string
 def find_medicine_for_alphabet(current_url):
     print(current_url)
     url = current_url + '0'
-    # only tranversing the page 0 for now 
-    output_response = requests.get(url)
+
+    output_response = requests.get(url)     # only tranversing the page 0 for now
     soup = BeautifulSoup(output_response.content,'html.parser')
     output = soup.findAll("div",{"class":"U9o7k"})
-    
+
     name_list = []
     for i in range(len(output)):
         print(i)
@@ -97,17 +97,16 @@ def find_medicine_for_alphabet(current_url):
     return name_list
 
 
-
-
 base_url_medicine_names = "https://pharmeasy.in/online-medicine-order/browse"
 alphabhet_url = base_url_medicine_names + "?alphabet="
 alphabet_wise_medicines = {}
 
 
-for i in list(string.ascii_lowercase):
-    current_url = alphabhet_url + i + "&page="
-    alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
+#for i in list(string.ascii_lowercase):
+#    current_url = alphabhet_url + i + "&page="
+#    alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
+
+current_url = alphabhet_url + 'a' + "&page="
+alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
 print("Success")
 mongo_insert(alphabet_wise_medicines)
-    
-    
