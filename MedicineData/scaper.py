@@ -15,7 +15,7 @@ def find_medicine_for_alphabet(current_url):
     name_list = []
     for i in range(len(output)):
         medicine_data_record = {}
-        medicine_url = "https://pharmeasy.in" +  output[i].a['href']
+        medicine_url = "https://pharmeasy.in" +  str(output[i].a['href'])
         medicine_response = requests.get(medicine_url)
         medicine_data_soup = BeautifulSoup(medicine_response.content,'html.parser')
         medicine_data_record['medicine_name'] = medicine_data_soup.find("h1",{"class":"ooufh"}).text
@@ -25,6 +25,7 @@ def find_medicine_for_alphabet(current_url):
         medicine_data_record['medicine_vendor_price'] =  float(medicine_data_soup.find("div",{"class":"_3FUtb"}).text.split("₹")[1])
         medicine_data_record['medicine_dicount'] = float(medicine_data_soup.find("div",{"class":"_306Fp"}).text.split("%")[0])
         medicine_data_record['medicine_composition'] = medicine_data_soup.find("div",{"class":"_3Phld"}).text
+        medicine_data_record['medicine_theuraptic_Classification'] = medicine_data_soup.find("td",{"class":"_3C_XR"}).text
         name_list.append(medicine_data_record)
     return name_list
 
