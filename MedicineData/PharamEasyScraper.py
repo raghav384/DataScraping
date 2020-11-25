@@ -39,7 +39,7 @@ alphabet_wise_medicines = {}
 #    current_url = alphabhet_url + i + "&page="
 #    alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
 
-current_url = alphabhet_url + i + "&page="
+current_url = alphabhet_url + 'a' + "&page="
 alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
 print("Success")
 mongo_insert(alphabet_wise_medicines)
