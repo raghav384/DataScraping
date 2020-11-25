@@ -8,4 +8,4 @@ searchbar_element = driver.find_element_by_xpath(searchbar_xpath)
 searchbar_element.send_keys("crocin")
 searchbutton_element = driver.find_element_by_xpath(searchbutton_xpath)
 searchbutton_element.click()
-
+print(driver.getCurrentURL())
