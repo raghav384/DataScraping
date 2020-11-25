@@ -7,27 +7,11 @@ import string
 def find_medicine_for_alphabet(current_url):
     print(current_url)
     url = current_url + '0'
-    # only tranversing the page 0 for now 
-    output_response = requests.get(url)
+
+    output_response = requests.get(url)     # only tranversing the page 0 for now
     soup = BeautifulSoup(output_response.content,'html.parser')
-<<<<<<< HEAD
-    output = soup.find_all("div",{"class":"U9o7k"})
-    name_list = []
-    #for i in range(len(output)):
-    #    name_list.append(output[i].a['href'])
-
-    #Class for medicine information retrieval : _3bwoY
-    medicine_url = "https://pharmeasy.in/" +  output[0].a['href']
-    print(medicine_url)
-    medicine_response = requests.get(medicine_url)
-    medicine_data_soup = BeautifulSoup(medicine_response.content,'html.parser')
-    print(medicine_data_soup.prettify())
-
-    print(medicine_data_soup.findAll('div',{"class":"_3bwoY"}))
-
-=======
     output = soup.findAll("div",{"class":"U9o7k"})
-    
+
     name_list = []
     for i in range(len(output)):
         medicine_data_record = {}
@@ -44,9 +28,6 @@ def find_medicine_for_alphabet(current_url):
         medicine_data_record['medicine_theuraptic_Classification'] = medicine_data_soup.find("td",{"class":"_3C_XR"}).text
         name_list.append(medicine_data_record)
     return name_list
->>>>>>> 5a5aa4111122401a54c1d424a7ec77820e8dcb47
-
-
 
 
 base_url_medicine_names = "https://pharmeasy.in/online-medicine-order/browse"
@@ -54,10 +35,11 @@ alphabhet_url = base_url_medicine_names + "?alphabet="
 alphabet_wise_medicines = {}
 
 
-for i in list(string.ascii_lowercase):
-    current_url = alphabhet_url + i + "&page="
-    alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
+#for i in list(string.ascii_lowercase):
+#    current_url = alphabhet_url + i + "&page="
+#    alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
+
+current_url = alphabhet_url + i + "&page="
+alphabet_wise_medicines[i] = find_medicine_for_alphabet(current_url)
 print("Success")
 mongo_insert(alphabet_wise_medicines)
-    
-    
