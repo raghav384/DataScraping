@@ -120,4 +120,4 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:
         futures.append(executor.submit(get_medicine_record, url))
 
 mongo_insert_multi_thread(medicine_records)
-print(len(medicne_records))
+print(len(medicine_records))

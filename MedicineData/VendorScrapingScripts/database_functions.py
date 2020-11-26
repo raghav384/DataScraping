@@ -5,8 +5,8 @@ from datetime import datetime
 def mongo_insert(input_data):
     try:
         client = MongoClient("mongodb://localhost:27017/")
-        database = client.medicine_data
-        collection = database.medicine_record_data
+        database = client.vendor_medicine_data
+        collection = database.medicine_records
         data_list = []
         for i in input_data.keys():
             data_list += input_data[i]
@@ -30,8 +30,8 @@ def mongo_insert(input_data):
 def mongo_insert_multi_thread(input_data):
     try:
         client = MongoClient("mongodb://localhost:27017/")
-        database = client.medicine_data
-        collection = database.medicine_record_data
+        database = client.vendor_medicine_data
+        collection = database.medicine_records
                  
         for i in range(len(input_data)):
             #print(type(data_list[i]))
