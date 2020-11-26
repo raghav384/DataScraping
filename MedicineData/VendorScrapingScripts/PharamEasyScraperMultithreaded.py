@@ -5,7 +5,7 @@ import concurrent.futures
 import string
 
 medicine_records = []
-def find_all_medicine_urls(webiste_url):
+def find_all_medicine_urls(current_url):
     url = current_url + '0'
     output_response = requests.get(url)
     soup = BeautifulSoup(output_response.content,'html.parser')
