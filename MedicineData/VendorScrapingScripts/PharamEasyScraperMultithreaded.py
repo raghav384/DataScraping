@@ -109,15 +109,18 @@ medicine_urls= []
 
 for i in list(string.ascii_lowercase):
      current_url = website_alphabet_url + i + "&page="
-     medicine_urls.append(find_all_medicine_urls(current_url))
+     medicine_urls.extend(find_all_medicine_urls(current_url))
 
 #current_url = website_alphabet_url + 'a' + "&page="
 #medicine_urls.extend(find_all_medicine_urls(current_url))
 #print("url found")
+print(len(medicine_urls))
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:
     futures= []
     for url in medicine_urls:
         futures.append(executor.submit(get_medicine_record, url))
 
+print("Database insertion starts")
 mongo_insert_multi_thread(medicine_records)
+print("Database insertion ends")
