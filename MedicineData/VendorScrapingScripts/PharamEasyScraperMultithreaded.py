@@ -21,7 +21,7 @@ def get_medicine_record(medicine_url):
     medicine_response = requests.get(medicine_url)
     medicine_data_soup = BeautifulSoup(medicine_response.content,'html.parser')
     medicine_data_record ={}
-    medicine_data_record['Vendor_Name'] = 'pharmaEasy'
+    medicine_data_record['vendor_name'] = 'pharmaEasy'
     medicine_data_record['medicine_url'] = medicine_url
     try:
         medicine_data_record['medicine_name'] = medicine_data_soup.find("h1",{"class":"ooufh"}).text
@@ -69,9 +69,9 @@ def get_medicine_record(medicine_url):
             medicine_data_record['error_found'].append('medcine_vendor_price not in order')
 
     try:
-        medicine_data_record['medicine_dicount'] = float(medicine_data_soup.find("div",{"class":"_306Fp"}).text.split("%")[0])
+        medicine_data_record['medicine_discount'] = float(medicine_data_soup.find("div",{"class":"_306Fp"}).text.split("%")[0])
     except:
-        medicine_data_record['medicine_dicount'] = str(medicine_data_soup.find("div",{"class":"_306Fp"}))
+        medicine_data_record['medicine_discount'] = str(medicine_data_soup.find("div",{"class":"_306Fp"}))
         if 'error_found' in medicine_data_record.keys():
             medicine_data_record['error_found'].append('medcine_discount not in order')
         else:
@@ -88,9 +88,9 @@ def get_medicine_record(medicine_url):
             medicine_data_record['error_found'].append('medcine_composition not in order')
 
     try:
-        medicine_data_record['medicine_theuraptic_Classification'] = medicine_data_soup.find("td",{"class":"_3C_XR"}).text
+        medicine_data_record['medicine_theuraptic_classification'] = medicine_data_soup.find("td",{"class":"_3C_XR"}).text
     except:
-        medicine_data_record['medicine_theuraptic_Classification'] = str(medicine_data_soup.find("td",{"class":"_3C_XR"}))
+        medicine_data_record['medicine_theuraptic_classification'] = str(medicine_data_soup.find("td",{"class":"_3C_XR"}))
         if 'error_found' in medicine_data_record.keys():
             medicine_data_record['error_found'].append('medcine_composition not in order')
         else:
