@@ -108,3 +108,4 @@ for i in list(string.ascii_lowercase):
 
 
 mongo_insert(alphabet_wise_medicines)
+print('hello')
