@@ -14,4 +14,4 @@ for section_name in config.sections():
     print('Options:', config.options(section_name))
     for name, value in config.items(section_name):
         print(name,value)
-    print
+    
