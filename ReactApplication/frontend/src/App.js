@@ -1,12 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-function App() {
-  return (
-    < div className="App">
-      <input type="text" placeholder="Enter item to be searched"  />
-      
-    </div>
-  );
+import React from 'react';
+import Header from "./components/Header"
+import Search from "./components/Search";
+class App extends React.Component {
+	render() {
+		return (
+			<div>
+				<Header/>
+				<Search/>
+			</div>
+		);
+	}
 }
-
 export default App;
