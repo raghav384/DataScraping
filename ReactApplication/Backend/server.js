@@ -11,25 +11,36 @@ app.use(express.static('public'));
 app.use(bodyParser.json({limit:'500mb'}));    
 app.use(bodyParser.urlencoded({extended:true, limit:'5mb'}));
 
-var mongoDB = 'mongodb://127.0.0.1/pharmeasy_medicine_data';
+var mongoDB = 'mongodb://127.0.0.1/vendor_medicine_data';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
- 
-var Schema = mongoose.Schema;
-var medicine_record = new Schema({      
-    medicine_name: { type: String   }                
-}); 
 
-var model = mongoose.model('medicine_records',medicine_record);
+var model = require('./models/medicine_record')
+app.get("/api/getdata/:query",function(req,res){
+  //console.log(req.params.query)     
+  
+  model.aggregate([
+  {'$match':    {'medicine_name' :  {'$regex': req.params.query , '$options' : 'i'} }},
+  {'$sort' : {'time_of_insertion':-1}},
+  {'$group' : { '_id' : {'medicine_name':'$medicine_name','vendor_name' : '$Vendor_Name'},
+    'price_offered' : {'$first': '$medicine_price'} ,
+    'time_of_insertion' : {'$first': '$time_of_insertion'},
+    'medicine_producer' : {'$first': '$medicine_producer'},
+    'medicine_composition' : {'$first': '$medicine_composition'},
+    'medicine_number_of_strips' : {'$first': '$medicine_number_of_strips'},
+    'medicine_url' : {'$first': '$medicine_url'}
+  }}
 
-app.get("/api/getdata",function(req,res){   
-  model.find({},function(err,out){
+  ]
+  ,function(err,out){
 
       if(err){
+          console.log(err);
           res.send(err);
       }
       else{
+          console.log(out);
           res.send(out);
       }
   })
