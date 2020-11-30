@@ -61,14 +61,6 @@ function Header() {
   const classes = useStyles();
   return (
     <div className="Header">
-    <AppBar className={classes.appBar} position="static">
-    <Toolbar>
-    <Typography variant="h6" color='black'>
-    <h1>HealthScroll</h1> 
-    <h4>Price comparator for healthcare products</h4>
-    </Typography>
-    </Toolbar>
-  </AppBar>
   <Box className={classes.hero}>
     <Box><h1>HealthScroll</h1></Box>  
   </Box>

@@ -1,10 +1,12 @@
 import React from 'react';
-import Header from "./components/Header"
+import Navbar from "./components/Navbar"
 import Search from "./components/Search";
+import Header from "./components/Header";
 class App extends React.Component {
 	render() {
 		return (
 			<div>
+				<Navbar/>
 				<Header/>
 				<Search/>
 			</div>

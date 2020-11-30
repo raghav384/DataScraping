@@ -3,6 +3,7 @@ import axios from 'axios';
 import Loader from '../loader.gif';
 import {Component, Fragment} from 'react';
 
+
 class Search extends Component {
 
 	constructor(props) {
@@ -19,7 +20,9 @@ class Search extends Component {
 	}
 
 	fetchSearchResults = (query) => {
-		const searchUrl = `http://localhost:8000/api/getdata`;
+		console.log(query)
+
+		const searchUrl = `http://localhost:8000/api/getdata/`+query;
 
 		if (this.cancel) {
 			this.cancel.cancel();
@@ -63,11 +66,11 @@ class Search extends Component {
 		console.log(results);
 		const search_result = results.map((result, index) => {
 			return (
-				<div className="card" style={{ width:25 + 'rem',backgroundColor:'grey' }}>
+				<div className="card" >
 					<div className="card-body">
-						<h1 className="card-title">{result.name}</h1>
-						<h2 className="card-text">{result.fullManufacturerName} </h2>
-						<h4 className="card-text">{result.salePriceDecimal} </h4>
+						<h1 className="card-title">{result._id.medicine_name}</h1>
+						<h2 className="card-text">{result.medicine_producer} </h2>
+						<h4 className="card-text">Price = {result.price_offered} </h4>
 				
 					</div>
 				</div>
