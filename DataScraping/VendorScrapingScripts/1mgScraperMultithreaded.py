@@ -20,7 +20,7 @@ def find_all_medicine_urls(website_url):
 def get_medicine_record(content,link):
     
     medicine_data_record ={}
-    medicine_data_record['Vendor_Name'] = '1mg'
+    medicine_data_record['vendor_name'] = '1mg'
     medicine_data_record['medicine_url'] = link
     try:
         medicine_data_record['medicine_name'] =  content.span.contents[0].text
@@ -30,14 +30,14 @@ def get_medicine_record(content,link):
         medicine_data_record['error_found'] = []
         medicine_data_record['error_found'].append('medcine_name not in order')
     try:
-        medicine_data_record['medicine_producer'] = content.span.contents[3].text
+        medicine_data_record['medicine_manufacturer'] = content.span.contents[3].text
     except:
-        medicine_data_record['medicine_producer'] = str(content)
+        medicine_data_record['medicine_manufacturer'] = str(content)
         if 'error_found' in medicine_data_record.keys():
-            medicine_data_record['error_found'].append('medcine_producer not in order')
+            medicine_data_record['error_found'].append('medcine_manufacturer not in order')
         else:
             medicine_data_record['error_found'] = []
-            medicine_data_record['error_found'].append('medcine_producer not in order')
+            medicine_data_record['error_found'].append('medcine_manufacturer not in order')
 
     try:
         medicine_data_record['medicine_number_of_strips'] = content.span.contents[2].text

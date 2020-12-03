@@ -20,10 +20,7 @@ class Search extends Component {
 	}
 
 	fetchSearchResults = (query) => {
-		console.log(query)
-
 		const searchUrl = `http://localhost:8000/api/getdata/`+query;
-
 		if (this.cancel) {
 			this.cancel.cancel();
 		}
