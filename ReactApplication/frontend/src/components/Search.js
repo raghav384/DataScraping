@@ -66,9 +66,10 @@ class Search extends Component {
 				<div className="card" >
 					<div className="card-body">
 						<h1 className="card-title">{result._id.medicine_name}</h1>
-						<h2 className="card-text">{result.medicine_producer} </h2>
-						<h4 className="card-text">Price = {result.price_offered} </h4>
-				
+						<h2 className="card-text">Medicine_Vendor : {result._id.vendor_name} </h2>
+						<h2 className="card-text">Manufacturer: {result.medicine_manufacturer} </h2>
+						<h4 className="card-text">Price = {result.medicine_price} </h4>
+						<h5 className="card-text"><a href= {result.medicine_url}>Site URL </a> </h5>
 					</div>
 				</div>
 			)

@@ -40,11 +40,17 @@ def get_medicine_record(product_id):
                             "availableQuantity","isAvailable","composition","therapy","pricePerUnit","returnText"
                         ]
         medicine_data_record = {key:response_data_dict[key] for key in  response_data_dict.keys() & key_values_dict }
+        consistent_record ={'vendor_name':'pharmEasy','medicine_name':
+                            response_data_dict["name"],'medicine_manufacturer':
+                            response_data_dict["fullManufacturerName"],'medicine_price':
+                            response_data_dict["salePriceDecimal"],
+                            'medicine_url':product_desc_url}
+        medicine_data_record.update(consistent_record)
         medicine_records.append(medicine_data_record)
     except:
         print("Exception occured !!!")
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=12) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
     futures= []
     for i in range(1,40001):
         futures.append(executor.submit(get_medicine_record, i))
