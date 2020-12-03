@@ -1,7 +1,7 @@
 .container {
-	margin: 36px auto;
+	margin-left: 600px;
 	width: 100%;
-	max-width: 800px;
+	max-width: 600px;
 }
 
 
@@ -17,9 +17,10 @@
 }
 
 .container input {
-	width: 100%;
-	padding: 16px;
-	font-size: 36px;
+	width:  800px;
+	margin-left: 100px;
+	padding: 8px;
+	font-size: 16px;
 	font-style: italic;
 	color: #444;
 	box-sizing: border-box;
@@ -28,7 +29,7 @@
 
 .search-icon {
 	position: absolute;
-	top: -10px;
+	top: 10px;
 	font-size: 24px;
 	color: #555;
 	right: 18px;
@@ -111,4 +112,9 @@
 .greyed-out {
 	background: #f1f1f1;
 	opacity: 0.5;
+}
+
+.card{
+margin-left: 85px;	
+ width: 800px;
 }
