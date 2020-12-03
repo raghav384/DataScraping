@@ -9,7 +9,7 @@ import concurrent.futures
 def mongo_insert_dict(input_data):
     try:
         client = MongoClient("mongodb://localhost:27017/")
-        database = client.pharmeasy_medicine_data
+        database = client.vendor_medicine_data
         collection = database.medicine_records
                  
         for i in range(len(input_data)):
