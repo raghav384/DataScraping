@@ -23,10 +23,10 @@ app.get("/api/getdata/:query",function(req,res){
   model.aggregate([
   {'$match':    {'medicine_name' :  {'$regex': req.params.query , '$options' : 'i'} }},
   {'$sort' : {'time_of_insertion':-1}},
-  {'$group' : { '_id' : {'medicine_name':'$medicine_name','vendor_name' : '$Vendor_Name'},
-    'price_offered' : {'$first': '$medicine_price'} ,
+  {'$group' : { '_id' : {'medicine_name':'$medicine_name','vendor_name' : '$vendor_name'},
+    'medicine_price' : {'$first': '$medicine_price'} ,
     'time_of_insertion' : {'$first': '$time_of_insertion'},
-    'medicine_producer' : {'$first': '$medicine_producer'},
+    'medicine_manufacturer' : {'$first': '$medicine_manufacturer'},
     'medicine_composition' : {'$first': '$medicine_composition'},
     'medicine_number_of_strips' : {'$first': '$medicine_number_of_strips'},
     'medicine_url' : {'$first': '$medicine_url'}
