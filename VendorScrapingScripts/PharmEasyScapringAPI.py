@@ -9,7 +9,7 @@ import concurrent.futures
 def mongo_insert_dict(input_data):
     try:
         client = MongoClient("mongodb://localhost:27017/")
-        database = client.vendor_medicine_data
+        database = client.HealthScrollDB
         collection = database.medicine_records
                  
         for i in range(len(input_data)):
@@ -34,17 +34,16 @@ def get_medicine_record(product_id):
         response = requests.get(product_desc_url)
         response_json_content =json.loads(response.content)
         response_data_dict = response_json_content["data"]
-        key_values_dict = [ "productId","name","fullManufacturerName","measurementUnit",
-                            "packform","isRxRequired","isRefrigerated","isChronic","mrpDecimal",
-                            "salePriceDecimal","discountDecimal","discountPercent","medicineStatusFlags",
-                            "availableQuantity","isAvailable","composition","therapy","pricePerUnit","returnText"
+        key_values_dict = [ "name","fullManufacturerName",
+                            "salePriceDecimal","composition"
                         ]
         medicine_data_record = {key:response_data_dict[key] for key in  response_data_dict.keys() & key_values_dict }
         consistent_record ={'vendor_name':'pharmEasy','medicine_name':
                             response_data_dict["name"],'medicine_manufacturer':
                             response_data_dict["fullManufacturerName"],'medicine_price':
                             response_data_dict["salePriceDecimal"],
-                            'medicine_url':product_desc_url}
+                            'medicine_url':product_desc_url,
+                            'medicine_composition':response_data_dict["composition"]}
         medicine_data_record.update(consistent_record)
         medicine_records.append(medicine_data_record)
     except:
@@ -52,7 +51,7 @@ def get_medicine_record(product_id):
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
     futures= []
-    for i in range(1,40001):
+    for i in range(60000,250000):
         futures.append(executor.submit(get_medicine_record, i))
 
 print("Database insertion starts")
