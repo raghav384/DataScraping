@@ -1,19 +1,20 @@
 import requests
 from bs4 import BeautifulSoup
-from database_functions import  mongo_insert_multi_thread
+from database_functions import mongo_insert_multi_thread
 import concurrent.futures
 import string
 
 medicine_records_list = []
 def find_all_medicine_urls(website_url):
     global medicine_records_list
-    output_response = requests.get(website_url)
+    output_response = requests.get(current_url)
     soup = BeautifulSoup(output_response.content,'html.parser')
-    output = soup.findAll("div",{"class":"Card__container__35Kl4 Card__productCard__1w56R Card__direction__k86sE container-fluid-padded-xl"})
-     
-    for i in range(len(output)):
-        medicine_url = "https://www.1mg.com" +  str(output[i].a['href'])
-        medicine_records_list.append(get_medicine_record(output[i],medicine_url))
+    print(soup)
+    output = soup.find_all("div",{"class":"Card_container2Kvce CardproductCard2MScM Carddirection_1UZ-g container-fluid-padded-xl"})
+    print(len(output))
+    #for i in range(len(output)):
+        #medicine_url = "https://www.1mg.com" +  str(output[i].a['href'])
+        #medicine_records_list.append(get_medicine_record(output[i],medicine_url))
 
 
 
@@ -77,8 +78,10 @@ website_url= "https://www.1mg.com/drugs-all-medicines"
 
 
 for i in list(string.ascii_lowercase):
-    current_url = website_url + "?label=" + i
-    find_all_medicine_urls(current_url)
+    for j in range(1,50):
+        current_url = website_url + "?page="+ str(j) +"&label=" + i
+        print(current_url)
+        find_all_medicine_urls(current_url)
 
-input_data = medicine_records_list.copy()
-mongo_insert_multi_thread(medicine_records_list)
+#input_data = medicine_records_list.copy()
+#mongo_insert_multi_thread(medicine_records_list)
